@@ -65,9 +65,10 @@ void PhysicsScene::draw()
 bool PhysicsScene::sphereToSphere(Sphere* sphere1, Sphere* sphere2)
 {
 	//check to make sure both spheres exist
+	//in class example
 	if (sphere1 != nullptr && sphere2 != nullptr)
 	{
-		/*if (sphere1 && sphere2)
+		if (sphere1 && sphere2)
 		{
 			glm::vec2 position1 = sphere1->getPosition();
 			glm::vec2 position2 = sphere2->getPosition();
@@ -79,20 +80,21 @@ bool PhysicsScene::sphereToSphere(Sphere* sphere1, Sphere* sphere2)
 				sphere2->applyForce(-(sphere2->getVelocity() * sphere2->getMass()));
 				return true;
 			}
-		}*/
-
-		//check to see the length of the two radii if they were touching
-		float maxDistanceToCollide = sphere1->getRadius() + sphere2->getRadius();
-		//check to see the distance between the two spheres
-		glm::vec2 displacement = sphere2->getPosition() - sphere1->getPosition();
-		float distance = glm::sqrt((displacement.x * displacement.x) + (displacement.y * displacement.y));
-		
-		//if the distance between the two spheres is shorter than the maxDistanceToCollide, then it is safe to assume collision
-		if (glm::abs(distance) < maxDistanceToCollide)
-		{
-			sphere1->applyForceToOther(sphere2, sphere1->getVelocity());
-			return true;
 		}
+
+		//MY EXAMPLE
+		////check to see the length of the two radii if they were touching
+		//float maxDistanceToCollide = sphere1->getRadius() + sphere2->getRadius();
+		////check to see the distance between the two spheres
+		//glm::vec2 displacement = sphere2->getPosition() - sphere1->getPosition();
+		//float distance = glm::sqrt((displacement.x * displacement.x) + (displacement.y * displacement.y));
+		//
+		////if the distance between the two spheres is shorter than the maxDistanceToCollide, then it is safe to assume collision
+		//if (glm::abs(distance) < maxDistanceToCollide)
+		//{
+		//	sphere1->applyForceToOther(sphere2, sphere1->getVelocity());
+		//	return true;
+		//}
 	}
 	return false;
 }
