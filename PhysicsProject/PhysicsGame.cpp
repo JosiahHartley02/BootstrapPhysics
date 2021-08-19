@@ -16,10 +16,19 @@ bool PhysicsGame::startup()
 
 	m_scene = new PhysicsScene();
 	m_scene->setTimeStep(0.01f);
-	m_scene->setGravity({0.0f,5.0f});
+	m_scene->setGravity({0.0f,0.0f});
 
-	Sphere* ball = new Sphere(glm::vec2(), glm::vec2(), 1, 10, glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+	Sphere* ball = new Sphere(glm::vec2(), glm::vec2(), 1, 5, glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
 	m_scene->addActor(ball);
+
+	Sphere* orb = new Sphere(glm::vec2(-12,0), glm::vec2(), 1, 5, glm::vec4(0.2f, 0.8f, 0.8f, 1.0f));
+	m_scene->addActor(orb);
+
+	/*Sphere* circle = new Sphere(glm::vec2(12, 0), glm::vec2(), 1, 5, glm::vec4(0.8f, 0.8f, 0.2f, 1.0f));
+	m_scene->addActor(circle);
+
+	Sphere* bouncer = new Sphere(glm::vec2(24, 0), glm::vec2(), 1, 5, glm::vec4(0.2f, 0.2f, 0.8f, 1.0f));
+	m_scene->addActor(bouncer);*/
 
 	return true;
 }

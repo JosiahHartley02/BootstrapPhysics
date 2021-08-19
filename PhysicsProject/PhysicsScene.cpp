@@ -37,10 +37,14 @@ void PhysicsScene::update(float deltaTime)
 		}
 		accumulatedTime -= m_timeStep;
 
-		for (auto outer = m_actors.begin(); outer != --m_actors.end(); outer++) {
-			for (auto inner = ++outer; inner != m_actors.end(); inner++) {
+		auto outerEnd = m_actors.end();
+		outerEnd--;
+		for (auto outer = m_actors.begin(); outer != outerEnd; outer++) {
+			auto innerBegin = outer;
+			innerBegin++;
+			for (auto inner = innerBegin; inner != m_actors.end(); inner++) {
 				PhysicsObject* object1 = *outer;
-				PhysicsObject* object2 = *outer;
+				PhysicsObject* object2 = *inner;
 
 				//Collision Check
 				sphereToSphere(dynamic_cast<Sphere*>(object1), dynamic_cast<Sphere*>(object2));
@@ -59,5 +63,21 @@ void PhysicsScene::draw()
 
 bool PhysicsScene::sphereToSphere(Sphere* sphere1, Sphere* sphere2)
 {
+	//check to make sure both spheres exist
+	if (sphere1 != nullptr && sphere2 != nullptr)
+	{
+		//check to see the length of the two radii if they were touching
+		float maxDistanceToCollide = sphere1->getRadius() + sphere2->getRadius();
+		//check to see the distance between the two spheres
+		glm::vec2 Displacement = { sphere2->getPosition().x - sphere1->getPosition().x, sphere2->getPosition().y - sphere1->getPosition().y};
+		//convert vec2 displacement to float
+		float distance = (Displacement.x * Displacement.x) + (Displacement.y * Displacement.y);
+		distance /= distance;
+		//if the distance between the two spheres is shorter than the maxDistanceToCollide, then it is safe to assume collision
+		if (distance < maxDistanceToCollide)
+		{
+			return true;
+		}
+	}
 	return false;
 }
