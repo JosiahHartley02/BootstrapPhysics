@@ -105,7 +105,7 @@ bool PhysicsScene::sphereToPlane(PhysicsObject* object1, PhysicsObject* object2)
 	Plane* plane = dynamic_cast<Plane*>(object2);
 
 	if (sphere && plane) {
-		//D1 = (C • N) - D - R
+		//D1 = (C ï¿½ N) - D - R
 		//D1 is the distance from the sphere surface to the plane surface
 		//C is the center of the sphere
 		//N is the normal of the plane
@@ -117,11 +117,7 @@ bool PhysicsScene::sphereToPlane(PhysicsObject* object1, PhysicsObject* object2)
 		float sphereRadius = sphere->getRadius();
 		float sphereToPlaneDistance = glm::dot(sphereCenter, planeNormal) - planeDistance - sphereRadius;
 		if (sphereToPlaneDistance <= 0) {
-			//STOP//
-			//sphere->applyForce(-sphere->getVelocity() * sphere->getMass());
-			//BOUNCE//
-			sphere->applyForce((-sphere->getVelocity() * sphere->getMass()) * 1.95f);
-			//DEFLECT//
+			plane->resolveCollision(sphere);
 			return true;
 		}
 	}

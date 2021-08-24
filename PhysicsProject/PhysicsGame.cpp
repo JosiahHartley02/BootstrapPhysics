@@ -16,8 +16,8 @@ bool PhysicsGame::startup()
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	m_scene = new PhysicsScene();
-	m_scene->setTimeStep(0.001f);
-	m_scene->setGravity({0.0f,0.0f});
+	m_scene->setTimeStep(0.01f);
+	m_scene->setGravity({0.0f,-10.0f});
 
 	Plane* bottomSurface = new Plane(glm::vec2(0.0f, 1.0f), -50.0f, glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
 	m_scene->addActor(bottomSurface);
