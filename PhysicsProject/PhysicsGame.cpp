@@ -11,12 +11,12 @@ bool PhysicsGame::startup()
 	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
 
 	m_renderer = new aie::Renderer2D();
-	setBackgroundColour(0.55f, 0.13f, 0.42f, 1.0f);
+	setBackgroundColour(0.2f, 0.5f, 0.42f, 1.0f);
 
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	m_scene = new PhysicsScene();
-	m_scene->setTimeStep(0.01f);
+	m_scene->setTimeStep(0.001f);
 	m_scene->setGravity({0.0f,0.0f});
 
 	Plane* bottomSurface = new Plane(glm::vec2(0.0f, 1.0f), -50.0f, glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
@@ -83,6 +83,26 @@ void PhysicsGame::update(float deltaTime)
 	//Exit on Esc
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 	{			    	quit();					}
+	//CHAOS
+
+	if (input->isKeyDown(aie::INPUT_KEY_UP))
+	{
+		m_scene->setGravity(glm::vec2(0, 100));
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_DOWN))
+	{
+		m_scene->setGravity(glm::vec2(0, -100));
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_LEFT))
+	{
+		m_scene->setGravity(glm::vec2(-100, 0));
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
+	{
+		m_scene->setGravity(glm::vec2(100, 0));
+	}
+	else
+		m_scene->setGravity(glm::vec2(0, 0));
 }
 
 void PhysicsGame::draw()
