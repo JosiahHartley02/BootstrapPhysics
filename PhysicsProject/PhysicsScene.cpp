@@ -24,6 +24,16 @@ void PhysicsScene::removeActor(PhysicsObject* actor)
 	m_actors.erase(actor);
 }
 
+//Collision function pointer type
+typedef bool(*collisionCheck)(PhysicsObject*, PhysicsObject*);
+
+//Array of collision check functions
+static collisionCheck collisionFunctionArray[] = {
+	PhysicsScene::planeToPlane, PhysicsScene::planeToSphere, PhysicsScene::planeToBox,
+	PhysicsScene::sphereToPlane, PhysicsScene::sphereToSphere, PhysicsScene::sphereToBox,
+	PhysicsScene::boxToPlane, PhysicsScene::boxToSphere, PhysicsScene::boxToBox
+};
+
 void PhysicsScene::update(float deltaTime)
 {
 	static float accumulatedTime = 0.0f;
@@ -46,12 +56,21 @@ void PhysicsScene::update(float deltaTime)
 			auto innerBegin = outer;
 			innerBegin++;
 			for (auto inner = innerBegin; inner != m_actors.end(); inner++) {
+				//Get the physics objects
 				PhysicsObject* object1 = *outer;
 				PhysicsObject* object2 = *inner;
 
-				//Collision Check
-				sphereToPlane(object1,object2);
-				planeToSphere(object1, object2);
+				//Get the Shape IDs
+				int shape1 = (int)object1->getShapeID();
+				int shape2 = (int)object2->getShapeID();
+
+				//Find the index using i = (y * w + x)
+				int i = (shape1 * (int)ShapeType::LENGTH) + shape2;
+				//Retrieve and call the collision check from the array
+				collisionCheck collisionFn = collisionFunctionArray[i];
+				if (collisionFn) {
+					collisionFn(object1, object2);
+				}
 			}
 		}
 	}
@@ -96,8 +115,8 @@ bool PhysicsScene::sphereToPlane(PhysicsObject* object1, PhysicsObject* object2)
 		glm::vec2 planeNormal = plane->getNormal();
 		float planeDistance = plane->getDistance();
 		float sphereRadius = sphere->getRadius();
-		float sphereToPlaneDistance = glm::dot(sphereCenter, planeNormal) - planeDistance - sphereRadius;
-		if (sphereToPlaneDistance <= -1) {
+		float sphereToPlaneDistance = glm::dot(sphereCenter, planeNormal) - planeDistance - sphereRadius + 1;
+		if (sphereToPlaneDistance <= 0) {
 			//STOP//
 			sphere->applyForce(-sphere->getVelocity() * sphere->getMass());
 			//BOUNCE//

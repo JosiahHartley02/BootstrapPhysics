@@ -21,7 +21,7 @@ bool PhysicsGame::startup()
 
 	Sphere* redBall = new Sphere(glm::vec2(-50,0), glm::vec2(), 1, 5, glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
 	m_scene->addActor(redBall);
-	redBall->applyForce(glm::vec2(0.0f, 0.0f));
+	redBall->applyForce(glm::vec2(10.0f, 0.0f));
 
 	Sphere* blueBall = new Sphere(glm::vec2(0,0), glm::vec2(), 1, 5, glm::vec4(0.2f, 0.8f, 0.8f, 1.0f));
 	m_scene->addActor(blueBall);
