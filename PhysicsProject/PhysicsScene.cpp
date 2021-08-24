@@ -118,9 +118,10 @@ bool PhysicsScene::sphereToPlane(PhysicsObject* object1, PhysicsObject* object2)
 		float sphereToPlaneDistance = glm::dot(sphereCenter, planeNormal) - planeDistance - sphereRadius + 1;
 		if (sphereToPlaneDistance <= 0) {
 			//STOP//
-			sphere->applyForce(-sphere->getVelocity() * sphere->getMass());
+			//sphere->applyForce(-sphere->getVelocity() * sphere->getMass());
 			//BOUNCE//
-			//sphere->applyForce((-sphere->getVelocity() * sphere->getMass()) * 1.95f);
+			sphere->applyForce((-sphere->getVelocity() * sphere->getMass()) * 1.95f);
+			//DEFLECT//
 			return true;
 		}
 	}
