@@ -84,6 +84,7 @@ bool PhysicsScene::sphereToPlane(PhysicsObject* object1, PhysicsObject* object2)
 {
 	Sphere* sphere = dynamic_cast<Sphere*>(object1);
 	Plane* plane = dynamic_cast<Plane*>(object2);
+
 	if (sphere && plane) {
 		//D1 = (C • N) - D - R
 		//D1 is the distance from the sphere surface to the plane surface
@@ -96,8 +97,11 @@ bool PhysicsScene::sphereToPlane(PhysicsObject* object1, PhysicsObject* object2)
 		float planeDistance = plane->getDistance();
 		float sphereRadius = sphere->getRadius();
 		float sphereToPlaneDistance = glm::dot(sphereCenter, planeNormal) - planeDistance - sphereRadius;
-		if (sphereToPlaneDistance <= 0) {
+		if (sphereToPlaneDistance <= -1) {
+			//STOP//
 			sphere->applyForce(-sphere->getVelocity() * sphere->getMass());
+			//BOUNCE//
+			//sphere->applyForce((-sphere->getVelocity() * sphere->getMass()) * 1.95f);
 			return true;
 		}
 	}
