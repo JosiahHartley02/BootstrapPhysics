@@ -115,7 +115,7 @@ bool PhysicsScene::sphereToPlane(PhysicsObject* object1, PhysicsObject* object2)
 		glm::vec2 planeNormal = plane->getNormal();
 		float planeDistance = plane->getDistance();
 		float sphereRadius = sphere->getRadius();
-		float sphereToPlaneDistance = glm::dot(sphereCenter, planeNormal) - planeDistance - sphereRadius + 1;
+		float sphereToPlaneDistance = glm::dot(sphereCenter, planeNormal) - planeDistance - sphereRadius;
 		if (sphereToPlaneDistance <= 0) {
 			//STOP//
 			sphere->applyForce(-sphere->getVelocity() * sphere->getMass());
