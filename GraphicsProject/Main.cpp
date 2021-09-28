@@ -3,10 +3,10 @@
 int main() {
 	
 	Engine* engine = new Engine(1280,720, "Graphics");
-
-	engine->run();
+		
+	int exitCode = engine->run();
 
 	delete engine;
 
-	return 0;
+	return exitCode;
 }
