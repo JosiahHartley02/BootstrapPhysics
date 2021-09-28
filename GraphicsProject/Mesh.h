@@ -11,7 +11,7 @@ public:
 	};
 public:
 	Mesh();
-	~Mesh() {}
+	~Mesh();
 
 private:
 	unsigned int m_triCount, m_vertexArray, m_vertexBuffer, m_indexBuffer;
