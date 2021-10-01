@@ -1,4 +1,10 @@
 #include "Quad.h"
+
+Quad::Quad(glm::vec4 color)
+{
+	m_color = color;
+}
+
 Quad::Vertex* Quad::generateVertices(unsigned int& vertexCount, unsigned int& triCount)
 {
 	Vertex* vertices = nullptr;

@@ -40,10 +40,10 @@ void Mesh::start()
 
 	//Fill vertex buffer
 	glBufferData(
-		GL_ARRAY_BUFFER,	//type of buffer
+		GL_ARRAY_BUFFER,				//type of buffer
 		sizeof(Vertex) * vertexCount,	//size in bytes of all vertices
-		vertices,			//all vertices
-		GL_STATIC_DRAW		//how the data will update
+		vertices,						//all vertices
+		GL_STATIC_DRAW					//how the data will update
 	);
 
 	//Enable vertex position as first attribute
