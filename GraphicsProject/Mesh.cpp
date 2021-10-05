@@ -34,7 +34,7 @@ void Mesh::start()
 	glBindVertexArray(m_vertexArrayObject);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
 
-	//Define the vertices for a quad
+	//Generate the vertices
 	unsigned int vertexCount;
 	Vertex* vertices = generateVertices(vertexCount, m_triCount);
 
@@ -80,4 +80,3 @@ void Mesh::draw()
 	glBindVertexArray(m_vertexArrayObject);
 	glDrawArrays(GL_TRIANGLES, 0, m_triCount * 3);
 }
-
