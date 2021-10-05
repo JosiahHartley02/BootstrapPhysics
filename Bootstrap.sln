@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bootstrap", "bootstrap\Bootstrap.vcxproj", "{AF59BB0B-E059-4773-83DC-728A949647DA}"
 EndProject
@@ -14,6 +14,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project3D", "Project3D\Proj
 	ProjectSection(ProjectDependencies) = postProject
 		{AF59BB0B-E059-4773-83DC-728A949647DA} = {AF59BB0B-E059-4773-83DC-728A949647DA}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsProject", "PhysicsProject\PhysicsProject.vcxproj", "{6796B91E-83C0-4A8A-8C31-C2BEE58AE8C0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF59BB0B-E059-4773-83DC-728A949647DA} = {AF59BB0B-E059-4773-83DC-728A949647DA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicsProject", "GraphicsProject\GraphicsProject.vcxproj", "{E608451D-2FEB-490E-BE18-5E9E24746FA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,8 +54,27 @@ Global
 		{EA21C4DF-E331-4FCF-8513-14A3F56B77F3}.Release|x64.Build.0 = Release|x64
 		{EA21C4DF-E331-4FCF-8513-14A3F56B77F3}.Release|x86.ActiveCfg = Release|Win32
 		{EA21C4DF-E331-4FCF-8513-14A3F56B77F3}.Release|x86.Build.0 = Release|Win32
+		{6796B91E-83C0-4A8A-8C31-C2BEE58AE8C0}.Debug|x64.ActiveCfg = Debug|x64
+		{6796B91E-83C0-4A8A-8C31-C2BEE58AE8C0}.Debug|x64.Build.0 = Debug|x64
+		{6796B91E-83C0-4A8A-8C31-C2BEE58AE8C0}.Debug|x86.ActiveCfg = Debug|Win32
+		{6796B91E-83C0-4A8A-8C31-C2BEE58AE8C0}.Debug|x86.Build.0 = Debug|Win32
+		{6796B91E-83C0-4A8A-8C31-C2BEE58AE8C0}.Release|x64.ActiveCfg = Release|x64
+		{6796B91E-83C0-4A8A-8C31-C2BEE58AE8C0}.Release|x64.Build.0 = Release|x64
+		{6796B91E-83C0-4A8A-8C31-C2BEE58AE8C0}.Release|x86.ActiveCfg = Release|Win32
+		{6796B91E-83C0-4A8A-8C31-C2BEE58AE8C0}.Release|x86.Build.0 = Release|Win32
+		{E608451D-2FEB-490E-BE18-5E9E24746FA6}.Debug|x64.ActiveCfg = Debug|x64
+		{E608451D-2FEB-490E-BE18-5E9E24746FA6}.Debug|x64.Build.0 = Debug|x64
+		{E608451D-2FEB-490E-BE18-5E9E24746FA6}.Debug|x86.ActiveCfg = Debug|Win32
+		{E608451D-2FEB-490E-BE18-5E9E24746FA6}.Debug|x86.Build.0 = Debug|Win32
+		{E608451D-2FEB-490E-BE18-5E9E24746FA6}.Release|x64.ActiveCfg = Release|x64
+		{E608451D-2FEB-490E-BE18-5E9E24746FA6}.Release|x64.Build.0 = Release|x64
+		{E608451D-2FEB-490E-BE18-5E9E24746FA6}.Release|x86.ActiveCfg = Release|Win32
+		{E608451D-2FEB-490E-BE18-5E9E24746FA6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {740C402F-4F72-4E49-ADAE-FA9A936019AE}
 	EndGlobalSection
 EndGlobal
