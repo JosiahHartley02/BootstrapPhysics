@@ -54,7 +54,7 @@ void Mesh::start()
 		GL_FLOAT,				//type of each value
 		GL_FALSE,				//whether to normalize
 		sizeof(Vertex),			//size in bytes of one vertex
-		0						//memory position of this attribute
+		(void*)(sizeof(glm::vec4) * 0) //memory position of this attribute
 	);
 	//Enable vertex color as second attribute
 	glEnableVertexAttribArray(1);
@@ -64,7 +64,17 @@ void Mesh::start()
 		GL_FLOAT,				//type of each value
 		GL_FALSE,				//whether to normalize
 		sizeof(Vertex),			//size in bytes of one vertex
-		(void*)sizeof(glm::vec4)//memory position of this attribute
+		(void*)(sizeof(glm::vec4) * 1) //memory position of this attribute
+	);
+	//Enable vertex normal as third attribute
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(
+		2,						//attribute index
+		4,						//number of values within attribute
+		GL_FLOAT,				//type of each value
+		GL_TRUE,				//whether to normalize
+		sizeof(Vertex),			//size in bytes of one vertex
+		(void*)(sizeof(glm::vec4) * 2) //memory position of this attribute
 	);
 
 	//Unbind buffer and array
@@ -75,8 +85,9 @@ void Mesh::start()
 	delete[] vertices;
 }
 
-void Mesh::draw()
+void Mesh::draw(aie::ShaderProgram* shader)
 {
+	shader->bindUniform("modelMatrix", m_transform);
 	glBindVertexArray(m_vertexArrayObject);
 	glDrawArrays(GL_TRIANGLES, 0, m_triCount * 3);
 }

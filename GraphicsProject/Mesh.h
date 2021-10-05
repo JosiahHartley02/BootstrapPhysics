@@ -1,4 +1,5 @@
 #pragma once
+#include "Shader.h"
 #include "gl_core_4_4.h"
 #include "glm\vec4.hpp"
 #include "glm\mat4x4.hpp"
@@ -9,6 +10,7 @@ public:
 	struct Vertex {
 		glm::vec4 position;
 		glm::vec4 color;
+		glm::vec4 normal;
 	};
 
 public:
@@ -16,7 +18,7 @@ public:
 	~Mesh();
 
 	void start();
-	void draw();
+	void draw(aie::ShaderProgram* shader);
 
 	virtual Vertex* generateVertices(unsigned int& vertexCount, unsigned int& triCount) = 0;
 
