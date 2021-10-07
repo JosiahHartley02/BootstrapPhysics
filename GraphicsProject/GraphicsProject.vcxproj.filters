@@ -90,8 +90,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="Buddha.obj">
+    <CopyFileToFolders Include="Buddha.obj">
       <Filter>Resource Files</Filter>
-    </Object>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
