@@ -54,7 +54,7 @@ void Mesh::start()
 		GL_FLOAT,				//type of each value
 		GL_FALSE,				//whether to normalize
 		sizeof(Vertex),			//size in bytes of one vertex
-		(void*)(sizeof(glm::vec4) * 0) //memory position of this attribute
+		0						//memory position of this attribute
 	);
 	//Enable vertex color as second attribute
 	glEnableVertexAttribArray(1);
@@ -64,7 +64,7 @@ void Mesh::start()
 		GL_FLOAT,				//type of each value
 		GL_FALSE,				//whether to normalize
 		sizeof(Vertex),			//size in bytes of one vertex
-		(void*)(sizeof(glm::vec4) * 1) //memory position of this attribute
+		(void*)sizeof(glm::vec4)//memory position of this attribute
 	);
 	//Enable vertex normal as third attribute
 	glEnableVertexAttribArray(2);
@@ -74,7 +74,7 @@ void Mesh::start()
 		GL_FLOAT,				//type of each value
 		GL_TRUE,				//whether to normalize
 		sizeof(Vertex),			//size in bytes of one vertex
-		(void*)(sizeof(glm::vec4) * 2) //memory position of this attribute
+		(void*)(sizeof(glm::vec4) * 2)
 	);
 
 	//Unbind buffer and array
