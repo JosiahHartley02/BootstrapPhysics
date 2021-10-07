@@ -18,7 +18,7 @@ void World::start()
 	m_quad.start();
 	//Initialize the light
 	m_light.setDirection(glm::vec3(-1.0f));
-	m_light.setAmbient(glm::vec4(0.6f, 0.6f, 0.0f, 1.0f));
+	m_light.setAmbient(glm::vec4(0.8f, 0.4f, 0.2f, 1.0f));
 	m_light.setDiffuse(glm::vec4(0.6f, 0.6f, 1.0f, 1.0f));
 	m_light.setSpecular(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	m_light.setSpecularPower(2.0f);
@@ -122,9 +122,9 @@ void World::draw(aie::ShaderProgram* shader)
 	shader->bindUniform("lightDiffuse", m_light.getDiffuse());
 	shader->bindUniform("lightSpecular", m_light.getSpecular());
 	shader->bindUniform("lightSpecularPower", m_light.getSpecularPower());
-	//m_quad.draw(shader);
+	m_quad.draw(shader);
 	shader->bindUniform("modelMatrix", m_objTransform);
-	m_objMesh.draw();
+	//m_objMesh.draw();
 }
 
 void World::end()
