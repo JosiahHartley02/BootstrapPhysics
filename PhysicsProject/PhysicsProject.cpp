@@ -7,6 +7,6 @@ int main()
     game->run("Physics Games", 1280, 720, false);
 
     delete game;
-    
+
     return 0;
 }

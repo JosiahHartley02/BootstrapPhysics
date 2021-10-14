@@ -11,64 +11,32 @@ bool PhysicsGame::startup()
 	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
 
 	m_renderer = new aie::Renderer2D();
-	setBackgroundColour(0.2f, 0.5f, 0.42f, 1.0f);
+	setBackgroundColour(0.2f, 0.2f, 0.2f, 1.0f);
 
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	m_scene = new PhysicsScene();
 	m_scene->setTimeStep(0.01f);
-	m_scene->setGravity({0.0f,-10.0f});
+	m_scene->setGravity({ 0.0f, -10.0f });
 
-	Plane* bottomSurface = new Plane(glm::vec2(0.0f, 1.0f), -50.0f, glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
-	m_scene->addActor(bottomSurface);
+	Sphere* ball = new Sphere(glm::vec2(-20.0f, 0.0f), glm::vec2(), 1, 5, glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+	m_scene->addActor(ball);
+	//ball->applyForce(glm::vec2(10.0f, 0.0f));
 
-	Plane* topSurface = new Plane(glm::vec2(0.0f, -1.0f), -50.0f, glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
-	m_scene->addActor(topSurface);
+	Sphere* orb = new Sphere(glm::vec2(20.0f, 0.0f), glm::vec2(), 1, 5, glm::vec4(0.2f, 0.8f, 0.8f, 1.0f));
+	m_scene->addActor(orb);
 
-	Plane* leftSurface = new Plane(glm::vec2(1.0f, 0.0f), -90, glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
-	m_scene->addActor(leftSurface);
-
-	Plane* rightSurface = new Plane(glm::vec2(-1.0f, 0.0f), -90, glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
-	m_scene->addActor(rightSurface);
-
-
-
-	Sphere* cueBall = new Sphere(glm::vec2(0, -40), glm::vec2(), 5, 1, glm::vec4(0.8f, 0.8f, 0.8f, 1.0f));
-	m_scene->addActor(cueBall);
-	cueBall->applyForce(glm::vec2(0.0f, 100.0f));
-
-	Sphere* billiardBall = new Sphere(glm::vec2(0.0f, -1.5f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall);
-
-	Sphere* billiardBall1 = new Sphere(glm::vec2(1.25f, 0.25f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall1);
-	Sphere* billiardBall2 = new Sphere(glm::vec2(-1.25f, 0.25f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall2);
-
-	Sphere* billiardBall3 = new Sphere(glm::vec2(2.60f, 2.0f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall3);
-	Sphere* billiardBall4 = new Sphere(glm::vec2(0.0f, 2.0f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall4);
-	Sphere* billiardBall5 = new Sphere(glm::vec2(-2.60f, 2.0f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall5);
-
-	Sphere* billiardBall6 = new Sphere(glm::vec2(-4.75f, 4.25f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall6);
-	Sphere* billiardBall7 = new Sphere(glm::vec2(2.60f, 4.25f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall7);
-	Sphere* billiardBall8 = new Sphere(glm::vec2(0.0f, 4.25f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall8);
-	Sphere* billiardBall9 = new Sphere(glm::vec2(-2.60f, 4.25f), glm::vec2(), 1, 1, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	m_scene->addActor(billiardBall9);
+	Plane* surface = new Plane(glm::vec2(0.4f, 2.0f), -30.0f, glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
+	m_scene->addActor(surface);
 
 	return true;
 }
 
 void PhysicsGame::shutdown()
 {
-	delete m_font;
 	delete m_renderer;
 	delete m_scene;
+	delete m_font;
 }
 
 void PhysicsGame::update(float deltaTime)
@@ -81,28 +49,9 @@ void PhysicsGame::update(float deltaTime)
 	m_scene->update(deltaTime);
 
 	//Exit on Esc
-	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-	{			    	quit();					}
-	//CHAOS
-
-	if (input->isKeyDown(aie::INPUT_KEY_UP))
-	{
-		m_scene->setGravity(glm::vec2(0, 100));
+	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE)) {
+		quit();
 	}
-	else if (input->isKeyDown(aie::INPUT_KEY_DOWN))
-	{
-		m_scene->setGravity(glm::vec2(0, -100));
-	}
-	else if (input->isKeyDown(aie::INPUT_KEY_LEFT))
-	{
-		m_scene->setGravity(glm::vec2(-100, 0));
-	}
-	else if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
-	{
-		m_scene->setGravity(glm::vec2(100, 0));
-	}
-	else
-		m_scene->setGravity(glm::vec2(0, 0));
 }
 
 void PhysicsGame::draw()
@@ -111,7 +60,7 @@ void PhysicsGame::draw()
 
 	m_renderer->begin();
 
-	//Draw the scene first
+	//Draw the scene
 	m_scene->draw();
 
 	//Draw the Gizmos
@@ -119,17 +68,17 @@ void PhysicsGame::draw()
 	aie::Gizmos::draw2D(glm::ortho<float>(
 		-100,				//left
 		100,				//right
-		-100 / aspectRatio, //Bottom 
-		100 / aspectRatio,  //Top
+		-100 / aspectRatio,	//bottom
+		100 / aspectRatio,	//top
 		-1.0f,				//zNear
-		1.0f)				//zFar
-	);
+		1.0f				//zFar
+	));
 
-	//Draw FPS last to act as an overlay
+	//Draw FPS
 	char fps[32];
 	sprintf_s(fps, 32, "FPS: %i", getFPS());
 	m_renderer->setRenderColour(1.0f, 1.0f, 1.0f, 1.0f);
-	m_renderer->drawText(m_font, fps, 0.0f, 720.0f - 32.0f);
+	m_renderer->drawText(m_font, fps, 0.0f, 0.0f);
 
 	m_renderer->end();
 }

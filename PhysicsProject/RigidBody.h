@@ -1,7 +1,6 @@
 #pragma once
 #include "PhysicsObject.h"
 
-
 class RigidBody : public PhysicsObject
 {
 public:
@@ -16,8 +15,9 @@ public:
 
 	glm::vec2 getPosition() { return m_position; }
 	glm::vec2 getVelocity() { return m_velocity; }
-	float getOrientation()  { return m_orientation; }
-	float getMass()			{ return m_mass; }
+	float getOrientation() { return m_orientation; }
+	float getMass() { return m_mass; }
+
 private:
 	glm::vec2 m_position;
 	glm::vec2 m_velocity;

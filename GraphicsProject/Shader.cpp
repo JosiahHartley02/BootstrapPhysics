@@ -88,7 +88,9 @@ bool Shader::createShader(unsigned int stage, const char* string) {
 
 ShaderProgram::~ShaderProgram() {
 	delete[] m_lastError;
-	glDeleteProgram(m_program);
+	if (m_program) {
+		glDeleteProgram(m_program);
+	}
 }
 
 bool ShaderProgram::loadShader(unsigned int stage, const char* filename) {

@@ -10,20 +10,25 @@ Engine::Engine() : Engine(1280, 720, "Window")
 
 Engine::Engine(int width, int height, const char* title)
 {
-	m_world = new World(width, height);
 	m_width = width;
 	m_height = height;
 	m_title = title;
+
+	m_shader = new aie::ShaderProgram();
 }
 
 Engine::~Engine()
 {
-	delete m_world;
 }
 
 int Engine::run()
 {
 	int exitCode = 0;
+
+	//Check for active world
+	if (!m_activeWorld) {
+		return exitCode = 1;
+	}
 
 	//Start
 	exitCode = start();
@@ -31,12 +36,23 @@ int Engine::run()
 		return exitCode;
 	}
 
+	double deltaTime = 0.0f;
+	double timeOfPreviousUpdate = 0.0;
+
 	//Update and draw
 	while (!getGameOver()) {
-		exitCode = update();
+		//Get the current time
+		double timeOfCurrentUpdate = glfwGetTime();
+		//Find the change in time
+		deltaTime = timeOfCurrentUpdate - timeOfPreviousUpdate;
+		//Store the current time for the next loop
+		timeOfPreviousUpdate = timeOfCurrentUpdate;
+
+		exitCode = update(deltaTime);
 		if (exitCode) {
 			return exitCode;
 		}
+
 		exitCode = draw();
 		if (exitCode) {
 			return exitCode;
@@ -82,31 +98,29 @@ int Engine::start()
 	glEnable(GL_DEPTH_TEST);
 
 	//Initialize the shader
-	m_shader.loadShader(
+	m_shader->loadShader(
 		aie::eShaderStage::VERTEX,
-		"simpleVert.shader"
+		"vertex.shader"
 	);
-	m_shader.loadShader(
+	m_shader->loadShader(
 		aie::eShaderStage::FRAGMENT,
-		"simpleFrag.shader"
+		"fragment.shader"
 	);
-	if (!m_shader.link()) {
-		printf("Shader Error: %s\n", m_shader.getLastError());
+	if (!m_shader->link()) {
+		printf("Shader Error: %s\n", m_shader->getLastError());
 		return -10;
 	}
-
-	m_world->start();
 
 	return 0;
 }
 
-int Engine::update()
+int Engine::update(float deltaTime)
 {
 	if (!m_window) return -4;
 
 	glfwPollEvents();
 
-	m_world->update();
+	m_activeWorld->update(deltaTime);
 
 	return 0;
 }
@@ -118,12 +132,21 @@ int Engine::draw()
 	//Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	m_shader.bind();
+	m_shader->bind();
 
-	glm::mat4 projectionViewModel = m_world->getProjectionViewModel();
-	m_shader.bindUniform("projectionViewModel", projectionViewModel);
+	Camera* camera = m_activeWorld->getCamera();
 
-	m_world->draw();
+	m_projectionMatrix = glm::perspective(
+		camera->getFieldOfView() * glm::pi<float>() / 180.0f,
+		(float)m_width / (float)m_height,
+		camera->getNearClip(),
+		camera->getFarClip()
+	);
+	glm::mat4 projectionViewMatrix = m_projectionMatrix * camera->getTransform()->getGlobalMatrix();
+	m_shader->bindUniform("projectionViewMatrix", projectionViewMatrix);
+	m_shader->bindUniform("cameraPosition", camera->getTransform()->getPosition());
+
+	m_activeWorld->draw();
 
 	glfwSwapBuffers(m_window);
 
@@ -134,7 +157,7 @@ int Engine::end()
 {
 	if (!m_window) return -6;
 
-	m_world->end();
+	m_activeWorld->end();
 
 	glfwDestroyWindow(m_window);
 	glfwTerminate();

@@ -13,9 +13,12 @@ public:
 
 	int run();
 
+	World* getActiveWorld() { return m_activeWorld; }
+	void setActiveWorld(World* world) { m_activeWorld = world; }
+
 private:
 	int start();
-	int update();
+	int update(float deltaTime);
 	int draw();
 	int end();
 
@@ -26,8 +29,10 @@ private:
 	int m_width, m_height;
 	const char* m_title;
 
-	aie::ShaderProgram m_shader;
+	glm::mat4 m_projectionMatrix = glm::mat4(1.0f);
 
-	World* m_world;
+	aie::ShaderProgram* m_shader = nullptr;
+
+	World* m_activeWorld = nullptr;
 };
 

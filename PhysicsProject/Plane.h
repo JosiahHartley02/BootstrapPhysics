@@ -14,7 +14,7 @@ public:
 	virtual void draw();
 
 	void resolveCollision(RigidBody* other);
-	
+
 	glm::vec2 getNormal() { return m_normal; }
 	float getDistance() { return m_distance; }
 	glm::vec4 getColor() { return m_color; }
