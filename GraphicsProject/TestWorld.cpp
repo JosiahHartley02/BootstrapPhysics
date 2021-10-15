@@ -18,15 +18,21 @@ void TestWorld::onStart()
 	m_light->setSpecular(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	add(m_light);
 
-	//Quad
-	m_quad = new Quad();
-	m_quad->setColor(glm::vec4(4.0f, 2.0f, 1.0f, 1.0f));
-	m_quad->getTransform()->scale(glm::vec3(10.0f));
-	add(m_quad);
+	////Quad
+	//m_quad = new Quad();
+	//m_quad->setColor(glm::vec4(4.0f, 2.0f, 1.0f, 1.0f));
+	//m_quad->getTransform()->scale(glm::vec3(10.0f));
+	//add(m_quad);
+
+	//Cube
+	m_cube = new Cube();
+	m_cube->setColor(glm::vec4(4.0f, 2.0f, 1.0f, 1.0f));
+	m_cube->getTransform()->scale(glm::vec3(10));
+	add(m_cube);
 
 	//OBJ
 	m_obj = new OBJMesh();
-	m_obj->load("Lucy.obj");
+	m_obj->load("Buddha.obj");
 	m_obj->getTransform()->setScale(glm::vec3(0.5f));
 	add(m_obj);
 }
