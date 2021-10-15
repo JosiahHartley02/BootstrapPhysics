@@ -13,21 +13,22 @@ void TestWorld::onStart()
 	//Light
 	m_light = new Light();
 	m_light->setDirection(glm::vec3(1.0f, 0.0f, -1.0f));
-	m_light->setAmbient(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
-	m_light->setDiffuse(glm::vec4(0.6f, 0.6f, 1.0f, 1.0f));
-	m_light->setSpecular(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_light->setAmbient(glm::vec4(0.2f, 0.4f, 0.2f, 1.0f));
+	m_light->setDiffuse(glm::vec4(0.3f, 0.6f, 1.0f, 1.0f));
+	m_light->setSpecular(glm::vec4(0.5f, 1.0f, 1.0f, 1.0f));
 	add(m_light);
 
-	////Quad
-	//m_quad = new Quad();
-	//m_quad->setColor(glm::vec4(4.0f, 2.0f, 1.0f, 1.0f));
-	//m_quad->getTransform()->scale(glm::vec3(10.0f));
-	//add(m_quad);
+	//Quad
+	m_quad = new Quad();
+	m_quad->setColor(glm::vec4(4.0f, 2.0f, 1.0f, 1.0f));
+	m_quad->getTransform()->scale(glm::vec3(10.0f));
+	m_quad->getTransform()->setPosition(0, 2, 0);
+	add(m_quad);
 
 	//Cube
 	m_cube = new Cube();
 	m_cube->setColor(glm::vec4(4.0f, 2.0f, 1.0f, 1.0f));
-	m_cube->getTransform()->scale(glm::vec3(10));
+	m_cube->getTransform()->scale(glm::vec3(1));
 	add(m_cube);
 
 	//OBJ
